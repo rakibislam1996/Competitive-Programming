@@ -1,0 +1,11 @@
+2: if the last digit of  is 2, 4, 6, 8, or 0;
+3: if the sum of digits of  is a multiple of 3;
+4: if the last 2 digits of  are a multiple of 4;
+5: if the last digit of  is either 0 or 5;
+6: if  is divisible by both 2 and 3;
+7: if subtracting twice the last digit of  from the remaining digits gives a multiple of 7 (e.g. 658 is divisible by 7 because 65 - 2 x 8 = 49, which is a multiple of 7);
+8: if the last 3 digits of  are a multiple of 8;
+9: if the sum of digits of  is a multiple of 9;
+10: if the last digit of  is 0;
+11: if the difference of the alternating sum of digits of  is a multiple of 11 (e.g. 2343 is divisible by 11 because 2 - 3 + 4 - 3 = 0, which is a multiple of 11);
+12: if  is divisible by both 3 and 4.

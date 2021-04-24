@@ -1,0 +1,137 @@
+#include<bits/stdc++.h>
+
+#define mem(x,y)        memset(x,y,sizeof(x))
+#define all(v)          (v).begin(),(v).end()
+#define vSort(v)        sort(all(v))
+#define maxSort(v)      sort(all(v),greater<int>())
+#define sqr(x)          ((x)*(x))
+#define deci(n)         cout<<fixed<<setprecision(n)
+
+#define For(i,k,n)      for(i = k; i <= n; i++)
+#define rFor(i,k,n)     for(i = k; i >= n; i--)
+#define forstl(i,v)     for(__typeof(v.begin())i = v.begin();i!=v.end();i++)
+#define forstr(i,str)   for(i = 0 ; str[i] ; i++)
+
+#define Auto(v)         __typeof(v.begin())
+#define E               "\n"
+#define e               putchar('\n')
+#define space           putchar(' ')
+
+#define scl(l)          scanf(" %[^\n]",l)
+#define scd(n)          scanf("%lf",&n)
+#define cscout          cout<<"Case "<<cs<<": "
+#define cspf            pf("Case %d: ",cs)
+#define sc              scanf
+#define pf              printf
+#define gc              getchar
+#define pc              putchar
+#define Unique(v)       v.erase(unique(all(v)),v.end())
+
+#define check(n,pos)    (n & (1<<(pos)))
+#define biton(n,pos)    (n |= (1<<(pos)))
+#define bitoff(n,pos)   (n &= ~(1<<(pos)))
+
+#define TC(T)           int T;sc("%d",&T);for(int cs=1;cs<=T;cs++)
+#define FTC(T)          int T;cin>>T;for(int cs=1;cs<=T;cs++)
+
+using namespace std;
+typedef double db;
+typedef long double ld;
+typedef unsigned int ui;
+typedef long long int ll;
+typedef unsigned long long int ull;
+
+const double PI = acos(-1);
+const double eps = 1e-7;
+const ll mod = 1000000007;
+const ll inf = 0x3f3f3f3f;
+
+#define SS              stringstream
+#define vi              vector<int>
+#define vll             vector<ll>
+#define pll             pair<ll,ll>
+#define pb(x)           push_back(x)
+#define mp(x,y)         make_pair(x,y)
+#define F               first
+#define S               second
+
+#define chkp(x,n)       (!(x[n>>6]&(1<<((n>>1)&31))))
+#define setp(x,n)       (x[n>>6]|=(1<<((n>>1)&31)))
+
+#define MX 100005
+vll prime,pFactor;
+//ui status[(MX>>6)+2];
+//template<typename T>inline void bitsieve(T N){T i,sq=sqrt(N)+2;prime.pb(2);for(i=3;i<=N;i+=2)if(chkp(status,i)){prime.pb(i);if(i<=sq)for(ll j=i*i;j<=N;j+=(i<<1))setp(status,j);}}
+//template<typename T>inline void sieve(T N){T i,sq=sqrt(N)+2;status[0]=status[1]=1;prime.pb(2);/*for(i=4;i<=N;i+=2)status[i]=1;*/for(i=3;i<=N;i+=2)if(!(status[i])){prime.pb(i);if(i<=sq)for(ll j=i*i;j<=N;j+=(i<<1))status[j]=1;}}
+//template<typename T>inline bool isPrime(T n){if(n==2)return 1;if(n<=1||!(n&1))return 0;return chkp(status,n);}
+template<typename T>inline T noOfprime(T n,T p){T res=0;while(n>=p)res+=n/p,n/=p;return res;}
+template<typename T>inline void factorws(T N){T sz=prime.size();for(T i=0;i<sz&&prime[i]*prime[i]<=N;i++){T temp=prime[i];while(!(N%temp)){pFactor.pb(temp);N/=temp;}}if(N>1)pFactor.pb(N);}
+template<typename T>inline void factor(T N){while(!(N&1)){pFactor.pb(2);N>>=1;}for(ll i=3;i*i<=N;i+=2)while(!(N%i)){pFactor.pb(i);N/=i;}if(N>1)pFactor.pb(N);}
+template<typename T>inline T totient(T N){T ans=N;if(!(N&1)){ans-=(ans>>1);while(!(N&1))N>>=1;}for(ll i=3;i*i<=N;i+=2){if(!(N%i))ans-=(ans/i);while(!(N%i))N/=i;}if(N>1)ans-=(ans/N);return ans;}
+template<typename T>inline T totientws(T N){ll ans=N;if(!(N&1)){ans-=(ans>>1);while(!(N&1))N>>=1;}T sz=prime.size();for(T i=0;i<sz&&prime[i]*prime[i]<=N;i++){ll p=prime[i];if(!(N%p)){ans-=(ans/p);while(!(N%p))N/=p;}}if(N>1)ans-=(ans/N);return ans;}
+template<typename T>inline T gcd(T a,T b){while(b)b ^= a ^= b ^= a %= b;return a;}
+template<typename T>inline T egcd(T a,T b,T &x,T &y){if(!a){x=0;y=1;return b;}T x1,y1;T d=egcd(b%a,a,x1,y1);x=y1-(b/a)*x1;y=x1;return d;}
+template<typename T>inline T lcm(T a, T b){return (a / gcd(a,b)) * b;}
+template<typename T>inline T bigMul(T a,T b,T m){if(b==0)return 0;ull x=bigMul(a,b>>1,m);x=((x%m)+(x%m))%m;if(b&1)x=(x+(a%m))%m;return x;}
+template<typename T>inline T bigMod(T a,T b,T m){if(b==0)return 1;ull x=bigMod(a,b>>1,m);x=((x%m)*(x%m))%m;if(b&1)x=(x*(a%m))%m;return x;}
+template<typename T>inline T bigmodmul(T a,T b,T m){if(b==0)return 1;ull x=bigmodmul(a,b>>1,m);x=bigMul(x,x,ull(m));if(b&1)x=bigMul(x,ull(a),ull(m));return x;}
+template<typename T>inline T negMod(T n,T m){return (n%m+m)%m;}
+template<typename T>inline T inverseMod(T b,T m){T x,y;T z=egcd(b,m,x,y);if(z==1){if(x<0)return negMod(x,m);else return x;}else return -1;}
+template<typename T>inline void printStl(T &v){int sz=v.size()-1;int k=0;forstl(i,v){if(k==sz)cout<<*i<<E;else cout<<*i<<" ";k++;}}
+template<typename T>inline void in(T &x){x=0;bool neg=false;register char c=getchar();while((c<48||c>57)&&c!=EOF&&c!='-')c=getchar();if(c=='-'){neg=true;c=getchar();}while(c>=48&&c<=57){x=(x<<3)+(x<<1)+c-48;c=getchar();}if(neg)x=~(x-1);}
+template<typename T>inline void in2(T &a,T &b){in(a);in(b);}
+template<typename T>inline void in3(T &a,T &b,T &c){in(a);in(b);in(c);}
+template<typename T>inline void out(T x){char a[21];T i=1,j;if(x<0){putchar('-');x=~(x-1);}if(x==0)putchar('0');while(x){a[i++]=x%10+48;x/=10;}for(j=i-1;j>=1;j--)putchar(a[j]);}
+bool flag = true;
+
+ll n,m[100],a[100];
+ll crt()
+{
+    ll product=1,result=0;
+    for(ll i=1;i<=n;i++)
+        product*=m[i];
+    for(ll i=1;i<=n;i++)
+    {
+        ll M  = product/m[i];
+        ll inverse = inverseMod(M,m[i]);
+        if(inverse==-1)
+            return -1;
+        else
+            result += ((a[i] * M * inverse)%product);
+    }
+    return result%product;
+}
+int main()
+{
+    TC(T)
+    {
+        in(n);
+        ll i;
+        For(i,1,n)
+            in2(m[i],a[i]);
+        out(crt()),e;
+
+    }
+
+
+    return 0;
+}
+/**
+
+x = a1 (mod m1)
+x = a2 (mod m2)
+x = a3 (mod m3)
+
+m = m1 * m2 * m3
+
+M1 = m/m1
+M2 = m/m2
+M3 = m/m3
+
+Y1 = M1 (inverse mod m1)
+Y2 = M2 (inverse mod m2)
+Y3 = M3 (inverse mod m3)
+
+x = a1*M1*Y1 + a2*M2*Y2 + a3*M3*Y3
+
+**/
